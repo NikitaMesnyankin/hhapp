@@ -46,5 +46,23 @@ const getVacanciesPerArea = async (companyIds) => {
 	return dataChunks;
 };
 
+const getVacanciesPerIndustry = async (companyIds) => {
+	const dataTree = {
+		label: "Индустрии",
+		value: "40992",
+		data: []
+	};
+	for (const company of companyIds) {
+		const response = await apiController.getEmployer(company);
+		for (const industry of response.data.industries) {
+			if (!(industry.id[0] in dataTree.data)) {
+				dataTree.data.push({
+					label: ""
+				})
+			}
+		}
+	}
+}
+
 export { getCountData, getVacanciesPerArea };
 
